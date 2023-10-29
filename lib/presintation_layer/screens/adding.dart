@@ -29,10 +29,10 @@ class _AddingpageState extends State<Addingpage> {
     print('===============================$_selectedImages');
   }
 
-  Future<void> uploadImages() async {
-    await BlocProvider.of<UplodingDataCubit>(context)
-        .uploadImagesAndSaveUrls(_selectedImages!);
-  }
+  // Future<void> uploadImages() async {
+  //   await BlocProvider.of<UplodingDataCubit>(context)
+  //       .uploadImagesAndSaveUrls(_selectedImages!);
+  // }
 
   Widget _Imagepickers() {
     return SizedBox(
@@ -66,9 +66,9 @@ class _AddingpageState extends State<Addingpage> {
         create: (context) => screenCubit,
         child: ElevatedButton(
             onPressed: () async {
-              BlocProvider.of<UplodingDataCubit>(context)
-                  .uploadData({'sooo': "34523532"});
-              uploadImages();
+              // BlocProvider.of<UplodingDataCubit>(context)
+              //     .uploadData({'sooo': "34523532"});
+              // uploadImages();
             },
             style: ElevatedButton.styleFrom(
               alignment: Alignment.center,
