@@ -1,19 +1,10 @@
-class GetMethodState {
-	final bool isLoading;
-	final String? error;
-	  
-	const GetMethodState({
-		this.isLoading = false,
-		this.error,
-	});
-	  
-	GetMethodState copyWith({
-		bool? isLoading,
-		String? error,
-	}) {
-		return GetMethodState(
-			isLoading: isLoading ?? this.isLoading,
-			error: error ?? this.error,
-		);
-	}
+import 'package:chinova/web_servese/model/Users.dart';
+
+sealed class GetMethodState {}
+class GetMethodInitial extends GetMethodState{}
+class Laoding extends GetMethodState{}
+
+
+class AllItemsState extends GetMethodState {
+  AllItemsState(List<Users> usersList);
 }
