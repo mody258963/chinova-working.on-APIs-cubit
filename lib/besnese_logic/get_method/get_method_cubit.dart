@@ -9,8 +9,8 @@ class GetMethodCubit extends Cubit<GetMethodState> {
 
   void emitGetAllUSers() {
     emit(Loading() as GetMethodState);
-    myRepo.getAllUsers().then((usersList) {
-      emit(AllItemsState(usersList));
+    myRepo.getAllUsers().then((allusersList) {
+      emit(AllItemsState(allusersList: []));
     });
   }
 }

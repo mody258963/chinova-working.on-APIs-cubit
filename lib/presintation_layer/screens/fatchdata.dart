@@ -1,6 +1,8 @@
 import 'package:chinova/besnese_logic/get_method/get_method_cubit.dart';
 import 'package:chinova/besnese_logic/get_method/get_method_state.dart';
-import 'package:chinova/web_servese/model/Users.dart';
+
+import 'package:chinova/web_servese/model/username.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,7 +14,7 @@ class TestPage extends StatefulWidget {
 }
 
 class _TestPageState extends State<TestPage> {
-  List<Users> usersList = [];
+  List<Username> usersList = [];
 
   @override
   void initState() {
@@ -20,38 +22,57 @@ class _TestPageState extends State<TestPage> {
     BlocProvider.of<GetMethodCubit>(context).emitGetAllUSers();
   }
 
-  Widget _buildPhoneNumberSumbit() {
-    return BlocListener<GetMethodCubit, GetMethodState>(
-      listenWhen: (previous, current) {
-        return previous != current;
-      },
-      listener: (BuildContext context, GetMethodState state) {
-        if (state is Laoding) {
-          _Circelindecator(context);
-        }
-        if (state is PhonwNumberSumbited) {
-          Navigator.maybePop(context);
-          Navigator.of(context, rootNavigator: true).pushNamed(
-            Optpage,
-            arguments: phoneNumber,
-          );
-        }
-        if (state is ErrorOccurred) {
-          String erromasg = (state).errorMsg;
-          print("===================================== $erromasg");
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(erromasg),
-            backgroundColor: Colors.black,
-            duration: const Duration(seconds: 6),
-          ));
-        }
-      },
-      child: Container(),
+  void _Circelindecator(BuildContext context) {
+    AlertDialog alertDialog = const AlertDialog(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      content: Center(
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+        ),
+      ),
     );
+    showDialog(
+        context: context,
+        barrierColor: Colors.white.withOpacity(0),
+        barrierDismissible: false,
+        builder: (context) {
+          return alertDialog;
+        });
+  }
+
+  Widget _buildPhoneNumberSumbit(BuildContext context) {
+    return BlocBuilder<GetMethodCubit, GetMethodState>(
+        builder: (context, state) {
+      if (state is AllItemsState) {
+        usersList = (state).allusersList;
+        return ListViewer();
+      } else {
+        _Circelindecator(context);
+      }
+      return Text("data");
+    });
+  }
+
+  Widget ListViewer() {
+    return ListView.builder(itemBuilder: ((context, index) {
+      return Container(
+        height: 58,
+        color: Colors.yellow,
+        child: Center(
+          child: Text(usersList[index].name.toString()),
+        ),
+      );
+    }));
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return MaterialApp(
+      home: Scaffold(
+        body:
+            Column(children: [ListViewer(), _buildPhoneNumberSumbit(context)]),
+      ),
+    );
   }
 }

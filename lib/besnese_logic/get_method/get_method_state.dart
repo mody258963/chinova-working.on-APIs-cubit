@@ -1,4 +1,4 @@
-import 'package:chinova/web_servese/model/Users.dart';
+import 'package:chinova/web_servese/model/username.dart';
 
 sealed class GetMethodState {}
 class GetMethodInitial extends GetMethodState{}
@@ -6,5 +6,7 @@ class Laoding extends GetMethodState{}
 
 
 class AllItemsState extends GetMethodState {
-  AllItemsState(List<Users> usersList);
+  final List<Username>  allusersList;
+
+  AllItemsState({required this.allusersList});
 }

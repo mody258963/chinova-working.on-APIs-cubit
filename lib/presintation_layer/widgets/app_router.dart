@@ -18,7 +18,6 @@ class AppRouter {
   AppRouter() {
     phoneAuthCubit = PhoneAuthCubit();
     uplodingDataCubit = UplodingDataCubit();
-    getMethodCubit = GetMethodCubit(myRepo!);
   }
 
   Route? generateRoute(RouteSettings settings) {
