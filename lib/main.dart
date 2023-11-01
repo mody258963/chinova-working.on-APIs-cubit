@@ -1,13 +1,16 @@
+import 'package:chinova/besnese_logic/get_method/get_method_cubit.dart';
 import 'package:chinova/costanse/pages.dart';
+import 'package:chinova/presintation_layer/screens/fatchdata.dart';
 import 'package:chinova/presintation_layer/widgets/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 String? initialRoute;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  initialRoute = posters;
+   initialRoute = posters;
 
   runApp(MyApp(
     appRouter: AppRouter(),

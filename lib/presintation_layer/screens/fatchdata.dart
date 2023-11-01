@@ -55,21 +55,25 @@ class _TestPageState extends State<TestPage> {
   }
 
   Widget ListViewer() {
-    return ListView.builder(itemBuilder: ((context, index) {
-      return Container(
-        height: 58,
-        color: Colors.yellow,
-        child: Center(
-          child: Text(usersList[index].name.toString()),
-        ),
-      );
-    }));
+    return ListView.builder(
+        shrinkWrap: true,
+        itemCount: usersList.length,
+        itemBuilder: ((context, index) {
+          return Container(
+            height: 58,
+            color: Colors.yellow,
+            child: Center(
+              child: Text(usersList[index].name.toString()),
+            ),
+          );
+        }));
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        appBar: AppBar(title: Text("fuck")),
         body:
             Column(children: [ListViewer(), _buildPhoneNumberSumbit(context)]),
       ),

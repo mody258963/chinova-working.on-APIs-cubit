@@ -1,13 +1,29 @@
+import 'package:chinova/costanse/strings.dart';
 import 'package:chinova/web_servese/model/username.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
-part 'web_serv.g.dart';
+class NameofCharactors {
+  late Dio dio;
 
-@RestApi(baseUrl: 'https://gorest.co.in/public/v2/users')
-abstract class RestClient {
-  factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
+  NameWebservese() {
+    BaseOptions options = BaseOptions(
+      baseUrl: baseUrl,
+      receiveDataWhenStatusError: true,
+      connectTimeout: const Duration(seconds: 20), //20 second
+      receiveTimeout: const Duration(seconds: 20),
+    );
+    dio = Dio(options);
+  }
 
-  @GET('users')
-  Future<List<Username>> getAllUsers();
+  Future<List<dynamic>> getAllUsers() async {
+    try {
+      Response response = await dio.get('users');
+      print(response.data.toString());
+      return response.data;
+    } catch (e) {
+      print("=============${e.toString()}");
+      return [];
+    }
+  }
 }

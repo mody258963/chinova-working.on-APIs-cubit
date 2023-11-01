@@ -5,6 +5,7 @@ import 'package:chinova/costanse/pages.dart';
 import 'package:chinova/presintation_layer/screens/OTP.dart';
 import 'package:chinova/presintation_layer/screens/fatchdata.dart';
 import 'package:chinova/presintation_layer/screens/login.dart';
+import 'package:chinova/web_servese/model/web_serv.dart';
 import 'package:chinova/web_servese/reproserty/myRepo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,10 +15,11 @@ class AppRouter {
   UplodingDataCubit? uplodingDataCubit;
   GetMethodCubit? getMethodCubit;
   MyRepo? myRepo;
-
   AppRouter() {
     phoneAuthCubit = PhoneAuthCubit();
     uplodingDataCubit = UplodingDataCubit();
+    myRepo = MyRepo(NameofCharactors());
+    getMethodCubit = GetMethodCubit(myRepo!);
   }
 
   Route? generateRoute(RouteSettings settings) {
@@ -38,8 +40,8 @@ class AppRouter {
 
       case posters:
         return MaterialPageRoute(
-            builder: (_) => BlocProvider<GetMethodCubit>.value(
-                  value: getMethodCubit!,
+            builder: (_) => BlocProvider(
+                  create: (BuildContext context) => GetMethodCubit(myRepo!),
                   child: TestPage(),
                 ));
     }
