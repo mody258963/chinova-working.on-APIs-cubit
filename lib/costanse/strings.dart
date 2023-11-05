@@ -1,1 +1,1 @@
-String baseUrl = 'https://gorest.co.in/public/v2/';
+const String baseUrl = 'https://fakestoreapi.com/';

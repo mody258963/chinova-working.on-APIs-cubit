@@ -2,12 +2,12 @@ import 'package:chinova/web_servese/model/username.dart';
 import 'package:chinova/web_servese/model/web_serv.dart';
 
 class MyRepo {
-  final NameofCharactors nameofCharactors;
+  final NameWebServise nameWebService;
 
-  MyRepo(this.nameofCharactors);
+  MyRepo(this.nameWebService);
 
   Future<List<Username>> getAllUsers() async {
-    final names = await nameofCharactors.getAllUsers();
-    return names.map((name) => Username.fromJson(name)).toList();
+    final names = await nameWebService.getAllUsers();
+    return names.map((names) => Username.fromJson(names)).toList();
   }
 }

@@ -9,14 +9,17 @@ class GetMethodCubit extends Cubit<GetMethodState> {
   List<Username>? myallUsers;
   GetMethodCubit(this.myRepo) : super(GetMethodInitial());
 
-  List<Username> emitGetAllUSers() {
-    myRepo.getAllUsers().then((allusersList) {
-      emit(AllItemsState(allusersList: []));
-      myallUsers = allusersList;
-      print('(==========$myallUsers');
-    });
-
-    return myallUsers!;
+  List<Username>? emitGetAllUSers() {
+    try {
+      myRepo.getAllUsers().then((allusersList) {
+        emit(AllItemsState(allusersList));
+        myallUsers = allusersList;
+        print('(=====cubit list=====$myallUsers');
+      });
+    } catch (error) {
+      print('=================${error.toString()}');
+    }
+    return myallUsers;
   }
 }
 // emit(state.copyWith(isLoading: true));

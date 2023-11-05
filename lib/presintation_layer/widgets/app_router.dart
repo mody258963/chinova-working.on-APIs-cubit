@@ -14,12 +14,11 @@ class AppRouter {
   PhoneAuthCubit? phoneAuthCubit;
   UplodingDataCubit? uplodingDataCubit;
   GetMethodCubit? getMethodCubit;
-  MyRepo? myRepo;
+
   AppRouter() {
     phoneAuthCubit = PhoneAuthCubit();
     uplodingDataCubit = UplodingDataCubit();
-    myRepo = MyRepo(NameofCharactors());
-    getMethodCubit = GetMethodCubit(myRepo!);
+    getMethodCubit = GetMethodCubit(MyRepo(NameWebServise()));
   }
 
   Route? generateRoute(RouteSettings settings) {
@@ -40,9 +39,9 @@ class AppRouter {
 
       case posters:
         return MaterialPageRoute(
-            builder: (_) => BlocProvider(
-                  create: (BuildContext context) => GetMethodCubit(myRepo!),
-                  child: TestPage(),
+            builder: (_) => BlocProvider<GetMethodCubit>.value(
+                  value: getMethodCubit!,
+                  child: const TestPage(),
                 ));
     }
     return null;

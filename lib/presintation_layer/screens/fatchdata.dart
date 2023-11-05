@@ -1,10 +1,12 @@
 import 'package:chinova/besnese_logic/get_method/get_method_cubit.dart';
 import 'package:chinova/besnese_logic/get_method/get_method_state.dart';
+import 'package:chinova/besnese_logic/phone_auth/cubit/phone_auth_cubit.dart';
 
 import 'package:chinova/web_servese/model/username.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 class TestPage extends StatefulWidget {
   const TestPage({super.key});
@@ -15,12 +17,6 @@ class TestPage extends StatefulWidget {
 
 class _TestPageState extends State<TestPage> {
   List<Username> usersList = [];
-
-  @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<GetMethodCubit>(context).emitGetAllUSers();
-  }
 
   void _Circelindecator(BuildContext context) {
     AlertDialog alertDialog = const AlertDialog(
@@ -41,16 +37,26 @@ class _TestPageState extends State<TestPage> {
         });
   }
 
-  Widget _buildPhoneNumberSumbit(BuildContext context) {
+  Widget _buildPhoneNumberSumbit() {
     return BlocBuilder<GetMethodCubit, GetMethodState>(
         builder: (context, state) {
       if (state is AllItemsState) {
-        usersList = (state).allusersList;
-        return ListViewer();
-      } else {
-        _Circelindecator(context);
+        final allUsersList = state.allusersList;
+        return SizedBox(
+          height: 500,
+          child: ListView.builder(
+            itemCount: allUsersList.length,
+            itemBuilder: (context, index) {
+              final user = allUsersList[index];
+              return ListTile(
+                title: Text(user.title.toString()),
+                subtitle: Text(user.price.toString()),
+              );
+            },
+          ),
+        );
       }
-      return Text("data");
+      return Container();
     });
   }
 
@@ -63,7 +69,7 @@ class _TestPageState extends State<TestPage> {
             height: 58,
             color: Colors.yellow,
             child: Center(
-              child: Text(usersList[index].name.toString()),
+              child: Text(usersList[index].title.toString()),
             ),
           );
         }));
@@ -74,8 +80,14 @@ class _TestPageState extends State<TestPage> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: Text("fuck")),
-        body:
-            Column(children: [ListViewer(), _buildPhoneNumberSumbit(context)]),
+        body: Column(children: [
+          _buildPhoneNumberSumbit(),
+          ElevatedButton(
+              onPressed: () {
+                BlocProvider.of<GetMethodCubit>(context).emitGetAllUSers();
+              },
+              child: Text("mohamed"))
+        ]),
       ),
     );
   }
